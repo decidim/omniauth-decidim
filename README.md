@@ -16,23 +16,27 @@ And then execute:
 
 ## Usage
 
-First you need to [create an OAuth application](https://github.com/decidim/decidim/blob/master/docs/customization/oauth.md) at your Decidim installation in order to get the Client ID, Client Secret and Site parameters.
+### Configure the Decidim application which acts as the OAuth provider
 
-Next, tell OmniAuth about this strategy. In a Decidim application using Devise you would create a file like `config/initializers/omniauth_decidim.rb` with this code:
+You need to create an OAuth application at your Decidim provider installation in order to get the Client ID, Client Secret and Site parameters. Check [Decidim's related documentation](https://github.com/decidim/decidim/blob/develop/docs/services/social_providers.md#decidim) in how to configure the Decidim social provider.
+
+### Configure the Decidim OAuth clients
+
+Enable `:decidim` as an OmniAuth strategy in the client application. To do it, set the `omniauth/decidim/enabled` key to true in `config/secrets.yml` .
+Optionally, the strategy can be further configured by also adding the `client_id`, `client_secret` and `site_url` keys with the values you got from your Decidim provider installation. This setting will be shared amongst all organizations in the instance, but can be selectively overriden in each organization's system administration panel.
+
+This is an example `config/secrets.yml`:
 
 ```ruby
-Devise.setup do |config|
-  config.omniauth :decidim,
-                  ENV["DECIDIM_CLIENT_ID"],
-                  ENV["DECIDIM_CLIENT_SECRET"],
-                  ENV["DECIDIM_SITE_URL"],
-                  scope: :public
-end
-
-Decidim::User.omniauth_providers << :decidim
+  omniauth:
+    decidim:
+      enabled: true
+      client_id: <%= ENV["DECIDIM_CLIENT_ID"] %>
+      client_secret: <%= ENV["DECIDIM_CLIENT_SECRET"] %>
+      site_url: <%= ENV["DECIDIM_SITE_URL"] %>
 ```
 
-You should set the environment variables with the values you got from your Decidim installation.
+Since Decidim v0.22.0, once enabled, the `:decidim` omniauth client strategy will be automatically loaded at boot time. Thus, there's no need to tell Devise about the omniauth strategy.
 
 ## Authentication Hash
 
