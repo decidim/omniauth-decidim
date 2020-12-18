@@ -18,7 +18,7 @@ And then execute:
 
 ### Configure the Decidim application which acts as the OAuth provider
 
-You need to create an OAuth application at your Decidim provider installation in order to get the Client ID, Client Secret and Site parameters. Check [Decidim's related documentation](https://github.com/decidim/decidim/blob/develop/docs/services/social_providers.md#decidim) in how to configure the Decidim social provider.
+You need to create an OAuth application at your Decidim provider installation in order to get the Client ID, Client Secret and Site parameters. Check [Decidim's related documentation](https://docs.decidim.org/en/services/social_providers/#_decidim) in how to configure the Decidim social provider.
 
 ### Configure the Decidim OAuth clients
 
