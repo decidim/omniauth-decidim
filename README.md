@@ -7,12 +7,21 @@ This is the [Decidim](https://github.com/decidim/decim) strategy for OmniAuth. I
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'omniauth-decidim', git: 'https://github.com/decidim/omniauth-decidim'
+gem 'omniauth-decidim'
 ```
 
 And then execute:
 
     $ bundle
+
+## Version compatiblity
+
+Depending in which Decidim version it's being used in the application is necessary to use differents versions of omniauth-decidim for compatibility reasons.
+
+|omniauth-decidim version | decidim version |
+|-------------------------|-----------------|
+| 0.1.0                   | <    0.25.2     |
+| 0.2.1                   | >=   0.25.2     |
 
 ## Usage
 
