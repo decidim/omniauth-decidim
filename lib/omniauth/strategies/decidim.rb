@@ -38,7 +38,7 @@ module OmniAuth
 
       # https://github.com/intridea/omniauth-oauth2/issues/81
       def callback_url
-        full_host + script_name + callback_path
+        full_host + callback_path
       end
     end
   end
