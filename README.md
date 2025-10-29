@@ -31,7 +31,31 @@ You need to create an OAuth application at your Decidim provider installation in
 
 ### Configure the Decidim OAuth clients
 
-Enable `:decidim` as an OmniAuth strategy in the client application. To do it, set the `omniauth/decidim/enabled` key to true in `config/secrets.yml` .
+Since Decidim v0.31, as there are is no longer the Rails' Secrets API (i.e. `config/secrets.yml` file) then you need to create an initializer (`config/initializers/decidim_omniauth.rb`) in your application:
+
+```ruby
+Decidim.configure do |config|
+  config.omniauth_providers = {
+    decidim: {
+      enabled: true,
+      client_id:  ENV["DECIDIM_CLIENT_ID"],
+      client_secret: ENV["DECIDIM_CLIENT_SECRET"],
+      site_url: ENV["DECIDIM_SITE_URL"]
+    },
+    facebook: {
+      enabled: false
+    },
+    twitter: {
+      enabled: false
+    },
+    google_oauth2: {
+      enabled: false
+    }
+  }
+end
+```
+
+For versions lower than v0.31, where you have the `config/secrets.yml` on your application, you need to enable `:decidim` as an OmniAuth strategy in the client application. To do it, set the `omniauth/decidim/enabled` key to true in `config/secrets.yml` .
 Optionally, the strategy can be further configured by also adding the `client_id`, `client_secret` and `site_url` keys with the values you got from your Decidim provider installation. This setting will be shared amongst all organizations in the instance, but can be selectively overriden in each organization's system administration panel.
 
 This is an example `config/secrets.yml`:
